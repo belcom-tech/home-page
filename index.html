@@ -327,7 +327,7 @@
     <!-- Форма заказа -->
     <section id="order">
       <h2><div class="section-icon"><i class="fas fa-paper-plane"></i></div> Оформить заявку</h2>
-      <p>Заполните форму ниже. После нажатия кнопки откроется Telegram с уже готовым сообщением для отправки мне.</p>
+      <p>Заполните форму ниже для подготовки данных, а затем нажмите кнопку, чтобы перейти в мой Telegram и отправить сообщение.</p>
       
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin: 25px 0;">
         <div style="background: var(--review-bg); padding: 25px; border-radius: 20px; border: 1px solid var(--border);">
@@ -358,9 +358,12 @@
         </div>
       </div>
 
-      <button onclick="redirectToTelegram()" class="pulse">
-        <i class="fab fa-telegram-plane"></i> Перейти в Telegram и отправить заявку
-      </button>
+      <!-- Кнопка теперь просто открывает ссылку -->
+      <a href="https://t.me/belcom_tech" target="_blank" style="text-decoration: none; display: block;">
+        <button class="pulse">
+          <i class="fab fa-telegram-plane"></i> Написать мне в Telegram
+        </button>
+      </a>
 
       <div style="background: rgba(114, 9, 183, 0.08); padding: 25px; border-radius: 18px; margin-top: 25px; border-left: 4px solid #7209b7;">
         <p style="margin-bottom: 15px; font-weight: 500;">
@@ -402,48 +405,6 @@
   </div>
 
   <script>
-    // === Логика переадресации в Telegram (Исправленная) ===
-    function redirectToTelegram() {
-      const name = document.getElementById("orderName").value.trim();
-      const contact = document.getElementById("orderContact").value.trim();
-      const task = document.getElementById("orderTask").value.trim();
-      const budget = document.getElementById("orderBudget").value.trim() || "Не указан";
-      const deadline = document.getElementById("orderDeadline").value.trim() || "Не указаны";
-
-      // Валидация
-      if (!name || name.length < 2) {
-        alert("Пожалуйста, введите ваше имя");
-        return;
-      }
-      if (!contact || contact.length < 3) {
-        alert("Пожалуйста, введите ваш Telegram");
-        return;
-      }
-      if (!task || task.length < 10) {
-        alert("Пожалуйста, опишите задачу подробнее");
-        return;
-      }
-
-      // Формирование текста сообщения
-      const message = `Здравствуйте!
-
-Имя: ${name}
-Telegram: ${contact}
-Проект: ${task}
-Бюджет: ${budget}
-Срок: ${deadline}`;
-
-      // Кодируем текст для URL
-      const encodedMessage = encodeURIComponent(message);
-      
-      // Ваш юзернейм в ТГ (без @)
-      const yourUsername = "belcom_tech"; 
-
-      // Используем tg://resolve для принудительного открытия приложения с текстом
-      // Это работает на iOS, Android и Desktop гораздо надежнее, чем https://t.me
-      window.location.href = `tg://resolve?domain=${yourUsername}&text=${encodedMessage}`;
-    }
-
     // === Тема ===
     function toggleTheme() {
       const body = document.body;
