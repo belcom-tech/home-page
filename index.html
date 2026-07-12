@@ -327,7 +327,7 @@
     <!-- Форма заказа -->
     <section id="order">
       <h2><div class="section-icon"><i class="fas fa-paper-plane"></i></div> Оформить заявку</h2>
-      <p>Заполните форму ниже. После нажатия кнопки вы будете перенаправлены в Telegram с уже заполненным сообщением для быстрой связи.</p>
+      <p>Заполните форму ниже. После нажатия кнопки откроется Telegram с уже готовым сообщением для отправки мне.</p>
       
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin: 25px 0;">
         <div style="background: var(--review-bg); padding: 25px; border-radius: 20px; border: 1px solid var(--border);">
@@ -402,7 +402,7 @@
   </div>
 
   <script>
-    // === Логика переадресации в Telegram ===
+    // === Логика переадресации в Telegram (Исправленная) ===
     function redirectToTelegram() {
       const name = document.getElementById("orderName").value.trim();
       const contact = document.getElementById("orderContact").value.trim();
@@ -439,8 +439,9 @@ Telegram: ${contact}
       // Ваш юзернейм в ТГ (без @)
       const yourUsername = "belcom_tech"; 
 
-      // Открываем Telegram с предзаполненным сообщением
-      window.open(`https://t.me/${yourUsername}?text=${encodedMessage}`, '_blank');
+      // Используем tg://resolve для принудительного открытия приложения с текстом
+      // Это работает на iOS, Android и Desktop гораздо надежнее, чем https://t.me
+      window.location.href = `tg://resolve?domain=${yourUsername}&text=${encodedMessage}`;
     }
 
     // === Тема ===
